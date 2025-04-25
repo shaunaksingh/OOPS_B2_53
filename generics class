@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// Generic Class: Box that can hold any type of item
+class Box<T> {
+    private T item;
+
+    public void setItem(T item) {
+        this.item = item;
+    }
+
+    public T getItem() {
+        return item;
+    }
+
+    public void displayItemType() {
+        if (item != null) {
+            System.out.println("Item in the box is of type: " + item.getClass().getName());
+        } else {
+            System.out.println("The box is empty.");
+        }
+    }
+}
+
+// Generic Method: A utility to print elements of any List
+class ListPrinter {
+    public static <E> void printList(List<E> list) {
+        for (E element : list) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+    }
+
+    // Generic Method with Type Bounds: Accepting only Number or its subclasses
+    public static <N extends Number> double sumOfList(List<N> numbers) {
+        double sum = 0.0;
+        for (N number : numbers) {
+            sum += number.doubleValue();
+        }
+        return sum;
+    }
+}
+
+public class GenericsDemo {
+    public static void main(String[] args) {
+        // Using the Generic Class 'Box'
+        Box<Integer> integerBox = new Box<>();
+        integerBox.setItem(10);
+        int intValue = integerBox.getItem();
+        System.out.println("Integer in the box: " + intValue);
+        integerBox.displayItemType();
+        System.out.println();
+
+        Box<String> stringBox = new Box<>();
+        stringBox.setItem("Hello Generics!");
+        String stringValue = stringBox.getItem();
+        System.out.println("String in the box: " + stringValue);
+        stringBox.displayItemType();
+        System.out.println();
+
+        // Without generics (older way - leads to potential ClassCastException)
+        ArrayList rawList = new ArrayList();
