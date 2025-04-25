@@ -1,0 +1,53 @@
+public class ExceptionHandlingDemo {
+
+    public static void main(String[] args) {
+        // Example 1: Handling ArithmeticException (division by zero)
+        try {
+            int numerator = 10;
+            int denominator = 0;
+            int result = numerator / denominator; // This will cause an ArithmeticException
+            System.out.println("Result: " + result); // This line will not be reached
+        } catch (ArithmeticException e) {
+            System.err.println("Error: Cannot divide by zero!");
+            System.err.println("Exception details: " + e.getMessage());
+            // You could also log the error, take alternative action, etc.
+        } finally {
+            System.out.println("Finally block executed for division.");
+        }
+
+        System.out.println("Continuing after the first try-catch block.");
+        System.out.println();
+
+        // Example 2: Handling ArrayIndexOutOfBoundsException
+        int[] numbers = {1, 2, 3};
+        try {
+            System.out.println("Accessing element at index 5: " + numbers[5]); // This will cause an ArrayIndexOutOfBoundsException
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Error: Array index out of bounds!");
+            System.err.println("Exception details: " + e); // Printing the entire exception object
+        } finally {
+            System.out.println("Finally block executed for array access.");
+        }
+
+        System.out.println("Continuing after the second try-catch block.");
+        System.out.println();
+
+        // Example 3: Handling a checked exception (FileNotFoundException)
+        try {
+            java.io.File file = new java.io.File("nonexistent_file.txt");
+            java.io.FileReader fileReader = new java.io.FileReader(file); // This might throw a FileNotFoundException
+            // ... read from the file ...
+            fileReader.close();
+        } catch (java.io.FileNotFoundException e) {
+            System.err.println("Error: File not found!");
+            System.err.println("Exception details: " + e.getMessage());
+        } catch (java.io.IOException e) {
+            System.err.println("Error: An I/O exception occurred while handling the file.");
+            System.err.println("Exception details: " + e.getMessage());
+        } finally {
+            System.out.println("Finally block executed for file operation.");
+        }
+
+        System.out.println("End of the program.");
+    }
+}
