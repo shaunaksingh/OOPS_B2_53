@@ -1,0 +1,66 @@
+class MyClass {
+    private String name;
+    private int id;
+
+    // Constructor 1: No-argument constructor
+    public MyClass() {
+        System.out.println("Default constructor called.");
+        this.name = "Default Name";
+        this.id = 0;
+    }
+
+    // Constructor 2: Parameterized constructor (overloading)
+    public MyClass(String name) {
+        System.out.println("Constructor with name called: " + name);
+        this.name = name;
+        this.id = generateId();
+    }
+
+    // Constructor 3: Parameterized constructor (overloading)
+    public MyClass(String name, int id) {
+        System.out.println("Constructor with name and id called: " + name + ", " + id);
+        this.name = name;
+        this.id = id;
+    }
+
+    // Method to generate a simple ID
+    private int generateId() {
+        // In a real application, you'd likely have a more sophisticated ID generation mechanism
+        return (int) (Math.random() * 1000);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void displayInfo() {
+        System.out.println("Name: " + name + ", ID: " + id);
+    }
+
+    // Example of method overloading
+    public void doSomething() {
+        System.out.println("Doing something without any specific input.");
+    }
+
+    public void doSomething(String task) {
+        System.out.println("Doing the task: " + task);
+    }
+
+    public void doSomething(int count) {
+        System.out.println("Doing something " + count + " times.");
+    }
+
+    // Java doesn't have explicit destructors like C++
+    // The garbage collector automatically reclaims memory
+    // You can use the finalize() method, but it's generally discouraged
+    @Override
+    protected void finalize() throws Throwable {
+        try {
+            System.out.println("Finalize method called for object with name: " + name);
+            // Perform any cleanup operations here (releasing resources, etc.)
+        } finally {
+            super.finalize
