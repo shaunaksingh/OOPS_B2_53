@@ -1,0 +1,82 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
+public class FileHandlingDemo {
+
+    public static void main(String[] args) {
+        String filename = "my_data.txt";
+        String contentToWrite = "Hello, this is some data to write to the file.\nThis is the second line.";
+        String anotherLine = "Adding one more line to the file.";
+
+        // 1. Writing to a file using FileWriter and BufferedWriter (Character Streams)
+        System.out.println("--- Writing to a file (Character Streams) ---");
+        try (FileWriter fileWriter = new FileWriter(filename);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write(contentToWrite);
+            bufferedWriter.newLine(); // Add a new line
+            bufferedWriter.write(anotherLine);
+            System.out.println("Data successfully written to " + filename);
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+
+        System.out.println();
+
+        // 2. Reading from a file using FileReader and BufferedReader (Character Streams)
+        System.out.println("--- Reading from a file (Character Streams) ---");
+        try (FileReader fileReader = new FileReader(filename);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println("Read line: " + line);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+        }
+
+        System.out.println();
+
+        // 3. Writing to a file using Files.write (NIO.2 - New I/O)
+        String anotherContent = "Data written using Files.write.";
+        try {
+            Files.write(Paths.get("nio_data.txt"), anotherContent.getBytes());
+            System.out.println("Data successfully written to nio_data.txt (NIO.2)");
+        } catch (IOException e) {
+            System.err.println("Error writing to file using NIO.2: " + e.getMessage());
+        }
+
+        System.out.println();
+
+        // 4. Reading all lines from a file using Files.readAllLines (NIO.2)
+        System.out.println("--- Reading all lines from a file (NIO.2) ---");
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(filename));
+            for (String line : lines) {
+                System.out.println("Read line (NIO.2): " + line);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from file using NIO.2: " + e.getMessage());
+        }
+
+        System.out.println();
+
+        // 5. Checking if a file exists and deleting it
+        File fileToDelete = new File("nio_data.txt");
+        if (fileToDelete.exists()) {
+            if (fileToDelete.delete()) {
+                System.out.println(fileToDelete.getName() + " successfully deleted.");
+            } else {
+                System.err.println("Failed to delete " + fileToDelete.getName());
+            }
+        } else {
+            System.out.println(fileToDelete.getName() + " does not exist.");
+        }
+    }
+}
