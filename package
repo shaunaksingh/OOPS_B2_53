@@ -1,0 +1,38 @@
+// Specify the package name at the top of the file
+package com.example.utils;
+
+public class StringUtils {
+
+    public static String reverseString(String input) {
+        return new StringBuilder(input).reverse().toString();
+    }
+
+    public static boolean isPalindrome(String input) {
+        String reversed = reverseString(input);
+        return input.equals(reversed);
+    }
+
+    public static void greet(String name) {
+        System.out.println("Hello, " + name + " from com.example.utils!");
+    }
+}
+javac com/example/utils/StringUtils.java
+// This class is in the default package (no package declaration)
+public class MainApp {
+
+    public static void main(String[] args) {
+        // Option 1: Import the entire package
+        import com.example.utils.*;
+
+        String original = "madam";
+        String reversed = StringUtils.reverseString(original);
+        System.out.println("Original string: " + original);
+        System.out.println("Reversed string: " + reversed);
+        System.out.println("Is palindrome? " + StringUtils.isPalindrome(original));
+        StringUtils.greet("User");
+        System.out.println();
+
+        // Option 2: Import a specific class from the package
+        com.example.utils.StringUtils.greet("Another User");
+    }
+}
