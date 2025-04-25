@@ -1,0 +1,119 @@
+// Define an interface named 'Movable'
+interface Movable {
+    // Interface methods are implicitly public and abstract
+    void move();
+
+    // Interface can also declare constants (implicitly public, static, and final)
+    String MOVEMENT_TYPE = "Locomotion";
+
+    // Default methods (introduced in Java 8) provide a default implementation
+    default void describeMovement() {
+        System.out.println("This object uses " + MOVEMENT_TYPE + " to move.");
+    }
+
+    // Static methods (introduced in Java 8) can be called directly on the interface
+    static void staticMovementInfo() {
+        System.out.println("Movement is a fundamental characteristic of many entities.");
+    }
+}
+
+// Implement the Movable interface in the 'Car' class
+class Car implements Movable {
+    String model;
+
+    public Car(String model) {
+        this.model = model;
+    }
+
+    @Override
+    public void move() {
+        System.out.println(model + " is driving.");
+    }
+
+    // We can choose to override the default method
+    @Override
+    public void describeMovement() {
+        System.out.println(model + " moves by driving on wheels.");
+    }
+}
+
+// Implement the Movable interface in the 'Bird' class
+class Bird implements Movable {
+    String species;
+
+    public Bird(String species) {
+        this.species = species;
+    }
+
+    @Override
+    public void move() {
+        System.out.println(species + " is flying.");
+    }
+}
+
+// Implement another interface 'Flyable'
+interface Flyable {
+    void fly();
+}
+
+// A class can implement multiple interfaces
+class Airplane implements Movable, Flyable {
+    String airline;
+
+    public Airplane(String airline) {
+        this.airline = airline;
+    }
+
+    @Override
+    public void move() {
+        System.out.println(airline + " airplane is taxiing.");
+    }
+
+    @Override
+    public void fly() {
+        System.out.println(airline + " airplane is flying.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car("Sedan");
+        Bird myBird = new Bird("Sparrow");
+        Airplane myPlane = new Airplane("Jet Airways");
+
+        System.out.println("Car movement:");
+        myCar.move();
+        myCar.describeMovement();
+        System.out.println("Movement type: " + Movable.MOVEMENT_TYPE); // Accessing interface constant
+        System.out.println();
+
+        System.out.println("Bird movement:");
+        myBird.move();
+        myBird.describeMovement(); // Uses the default implementation
+        System.out.println();
+
+        System.out.println("Airplane movement:");
+        myPlane.move();
+        myPlane.fly();
+        myPlane.describeMovement(); // Uses the default implementation
+        System.out.println();
+
+        // Calling the static method of the interface
+        Movable.staticMovementInfo();
+
+        // Polymorphism with interfaces
+        Movable movableCar = new Car("SUV");
+        Movable movableBird = new Bird("Eagle");
+        Movable movablePlane = new Airplane("Air India");
+
+        System.out.println("\nMovable interface references:");
+        movableCar.move();
+        movableBird.move();
+        movablePlane.move();
+
+        // The Flyable interface reference can only access methods defined in Flyable
+        Flyable flyingObject = new Airplane("Emirates");
+        flyingObject.fly();
+        // flyingObject.move(); // This would cause a compile-time error
+    }
+}
