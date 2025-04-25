@@ -1,0 +1,110 @@
+// Base class (Parent class or Superclass)
+class Animal {
+    String name;
+
+    public Animal(String name) {
+        System.out.println("Animal constructor called.");
+        this.name = name;
+    }
+
+    public void eat() {
+        System.out.println(name + " is eating.");
+    }
+
+    public void makeSound() {
+        System.out.println("Generic animal sound.");
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+// Derived class (Child class or Subclass) inheriting from Animal
+class Dog extends Animal {
+    String breed;
+
+    public Dog(String name, String breed) {
+        // Call the constructor of the superclass using super()
+        super(name);
+        System.out.println("Dog constructor called.");
+        this.breed = breed;
+    }
+
+    // Override the makeSound() method of the superclass
+    @Override
+    public void makeSound() {
+        System.out.println(getName() + " says: Woof!");
+    }
+
+    public void fetch() {
+        System.out.println(getName() + " is fetching the ball.");
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+}
+
+// Another derived class inheriting from Animal
+class Cat extends Animal {
+    String color;
+
+    public Cat(String name, String color) {
+        super(name);
+        System.out.println("Cat constructor called.");
+        this.color = color;
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(getName() + " says: Meow!");
+    }
+
+    public void purr() {
+        System.out.println(getName() + " is purring.");
+    }
+
+    public String getColor() {
+        return color;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create objects of the base class
+        Animal genericAnimal = new Animal("Creature");
+        genericAnimal.eat();
+        genericAnimal.makeSound();
+        System.out.println("Animal's name: " + genericAnimal.getName());
+        System.out.println();
+
+        // Create objects of the derived class Dog
+        Dog myDog = new Dog("Buddy", "Golden Retriever");
+        myDog.eat(); // Inherited from Animal
+        myDog.makeSound(); // Overridden method
+        myDog.fetch(); // Specific to Dog
+        System.out.println("Dog's name: " + myDog.getName());
+        System.out.println("Dog's breed: " + myDog.getBreed());
+        System.out.println();
+
+        // Create objects of the derived class Cat
+        Cat myCat = new Cat("Lucy", "Calico");
+        myCat.eat(); // Inherited from Animal
+        myCat.makeSound(); // Overridden method
+        myCat.purr(); // Specific to Cat
+        System.out.println("Cat's name: " + myCat.getName());
+        System.out.println("Cat's color: " + myCat.getColor());
+        System.out.println();
+
+        // Polymorphism example: Treating derived class objects as base class objects
+        Animal animalRef1 = new Dog("Max", "Labrador");
+        Animal animalRef2 = new Cat("Whiskers", "Black");
+
+        animalRef1.eat();
+        animalRef1.makeSound(); // Calls the Dog's makeSound()
+
+        animalRef2.eat();
+        animalRef2.makeSound(); // Calls the Cat's makeSound()
+    }
+}
