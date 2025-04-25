@@ -1,0 +1,42 @@
+// Define a class named 'Dog'
+class Dog {
+    // Instance variables (attributes or properties of a Dog object)
+    String name;
+    String breed;
+    int age;
+
+    // Constructor: a special method to initialize objects of the Dog class
+    public Dog(String name, String breed, int age) {
+        this.name = name;
+        this.breed = breed;
+        this.age = age;
+    }
+
+    // Method: an action that a Dog object can perform
+    public void bark() {
+        System.out.println("Woof! Woof!");
+    }
+
+    // Method to display the dog's information
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Breed: " + breed);
+        System.out.println("Age: " + age + " years");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Create objects (instances) of the Dog class
+        Dog dog1 = new Dog("Buddy", "Golden Retriever", 3);
+        Dog dog2 = new Dog("Lucy", "Poodle", 5);
+
+        // Access the attributes of the objects using the dot operator (.)
+        System.out.println("Dog 1's name: " + dog1.name);
+        System.out.println("Dog 2's breed: " + dog2.breed);
+
+        // Call the methods of the objects
+        dog1.bark();
+        dog2.displayInfo();
+    }
+}
